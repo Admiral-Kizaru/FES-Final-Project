@@ -1,0 +1,79 @@
+:root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --primary: #6366f1;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Critical for sticky footer */
+}
+
+.container {
+    flex: 1; /* Pushes footer down */
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    width: 100%;
+}
+
+/* Header & Controls */
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.controls { display: flex; gap: 15px; }
+input, select {
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+}
+
+/* Transaction Cards */
+.transaction-grid { list-style: none; display: grid; gap: 12px; }
+.t-card {
+    background: var(--card);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+}
+.t-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+.t-info h4 { font-size: 1rem; }
+.t-info p { font-size: 0.85rem; color: var(--text-muted); }
+.t-amount { font-weight: 700; color: var(--primary); }
+
+/* Sticky Footer */
+.site-footer {
+    background: #0f172a;
+    color: white;
+    padding: 60px 20px 20px;
+    margin-top: 50px;
+}
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+.footer-links { display: flex; gap: 40px; }
+.link-group h4 { margin-bottom: 15px; font-size: 0.9rem; color: var(--primary); }
+.link-group a { display: block; color: #94a3b8; text-decoration: none; margin-bottom: 8px; font-size: 0.85rem; }
+.footer-bottom {
+    border-top: 1px solid #1e293b;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #64748b;
+}

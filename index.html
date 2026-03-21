@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceFlow Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fixed Icon Link -->
+    <script src="https://unpkg.com"></script>
+</head>
+<body>
+
+    <main class="container">
+        <header>
+            <h1>Transactions</h1>
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search merchants...">
+                </div>
+                <select id="sortSelect">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="highest">Highest Amount</option>
+                    <option value="lowest">Lowest Amount</option>
+                </select>
+            </div>
+        </header>
+
+        <section class="stats-bar">
+            <div class="stat-card">
+                <span>Total Filtered</span>
+                <h2 id="totalAmount">$0.00</h2>
+            </div>
+        </section>
+
+        <ul id="transactionList" class="transaction-grid">
+            <!-- JS will inject items here -->
+        </ul>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>FinanceFlow</h3>
+                <p>Smart tracking for modern teams.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="#">Features</a>
+                    <a href="#">Security</a>
+                </div>
+                <div class="link-group">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">API Docs</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 FinanceFlow Inc. Built with precision.</p>
+        </div>
+    </footer>
+
+    <!-- Fixed Filename -->
+    <script src="javascript.js"></script>
+</body>
+</html>
