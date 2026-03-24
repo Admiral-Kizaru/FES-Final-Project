@@ -3,66 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinanceFlow Dashboard</title>
+    <title>Dynamic Data Hub</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Fixed Icon Link -->
+    <!-- Icons -->
     <script src="https://unpkg.com"></script>
 </head>
 <body>
 
-    <main class="container">
-        <header>
-            <h1>Transactions</h1>
-            <div class="controls">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search merchants...">
-                </div>
-                <select id="sortSelect">
-                    <option value="newest">Newest First</option>
-                    <option value="oldest">Oldest First</option>
-                    <option value="highest">Highest Amount</option>
-                    <option value="lowest">Lowest Amount</option>
-                </select>
+    <nav class="navbar">
+        <div class="nav-container">
+            <span class="logo">DATA<span>HUB</span></span>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Docs</a>
             </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="hero">
+            <h1>Dynamic Resource Explorer</h1>
+            <p>Fetching real-time data from external API endpoints.</p>
         </header>
 
-        <section class="stats-bar">
-            <div class="stat-card">
-                <span>Total Filtered</span>
-                <h2 id="totalAmount">$0.00</h2>
+        <section class="controls">
+            <div class="search-wrapper">
+                <i data-lucide="search"></i>
+                <input type="text" id="searchInput" placeholder="Search by title...">
+            </div>
+            
+            <div class="filter-wrapper">
+                <select id="filterSelect">
+                    <option value="all">All IDs</option>
+                    <option value="even">Even IDs Only</option>
+                    <option value="odd">Odd IDs Only</option>
+                </select>
             </div>
         </section>
 
-        <ul id="transactionList" class="transaction-grid">
-            <!-- JS will inject items here -->
-        </ul>
+        <div id="loader" class="loader"></div>
+        <div id="resultsGrid" class="results-grid">
+            <!-- API Data Injected Here -->
+        </div>
     </main>
 
     <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3>FinanceFlow</h3>
-                <p>Smart tracking for modern teams.</p>
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>DataHub</h3>
+                <p>Clean. Fast. Dynamic.</p>
             </div>
             <div class="footer-links">
-                <div class="link-group">
-                    <h4>Product</h4>
-                    <a href="#">Features</a>
-                    <a href="#">Security</a>
-                </div>
-                <div class="link-group">
-                    <h4>Support</h4>
-                    <a href="#">Help Center</a>
-                    <a href="#">API Docs</a>
-                </div>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 FinanceFlow Inc. Built with precision.</p>
+            &copy; 2026 DataHub API Project. 
         </div>
     </footer>
 
-    <!-- Fixed Filename -->
     <script src="javascript.js"></script>
 </body>
 </html>

@@ -1,50 +1,55 @@
-const transactions = [
-    { id: 1, name: "Amazon Web Services", date: "2026-03-20", amount: 150.00, category: "Infrastructure" },
-    { id: 2, name: "Starbucks Coffee", date: "2026-03-18", amount: 12.50, category: "Food" },
-    { id: 3, name: "Apple Store", date: "2026-03-21", amount: 1299.00, category: "Hardware" },
-    { id: 4, name: "Figma Subscription", date: "2026-03-15", amount: 45.00, category: "Software" },
+// Local Mock Data (Simulating the API)
+const allData = [
+    { id: 1, title: "Modern Web Design", body: "Exploring the latest trends in UI/UX for 2026." },
+    { id: 2, title: "JavaScript Performance", body: "How to optimize your code for faster load times." },
+    { id: 3, title: "Responsive Layouts", body: "Using CSS Grid and Flexbox for mobile-first sites." },
+    { id: 4, title: "API Integration", body: "A guide to fetching and displaying dynamic content." },
+    { id: 5, title: "Component Systems", body: "Building reusable UI elements for scale." },
+    { id: 6, title: "State Management", body: "Keeping your data in sync across your application." },
+    { id: 7, title: "Security Best Practices", body: "Protecting your web applications from common threats." }
 ];
 
-const listEl = document.getElementById('transactionList');
+const grid = document.getElementById('resultsGrid');
 const searchInput = document.getElementById('searchInput');
-const sortSelect = document.getElementById('sortSelect');
-const totalEl = document.getElementById('totalAmount');
+const filterSelect = document.getElementById('filterSelect');
 
-function render(data) {
-    listEl.innerHTML = data.map(t => `
-        <li class="t-card">
-            <div class="t-info">
-                <h4>${t.name}</h4>
-                <p>${t.category} • ${t.date}</p>
-            </div>
-            <div class="t-amount">$${t.amount.toFixed(2)}</div>
-        </li>
-    `).join('');
-    
-    const total = data.reduce((sum, item) => sum + item.amount, 0);
-    totalEl.innerText = `$${total.toLocaleString()}`;
-}
+function displayData() {
+    const searchVal = searchInput.value.toLowerCase();
+    const filterVal = filterSelect.value;
 
-function updateUI() {
-    let filtered = transactions.filter(t => 
-        t.name.toLowerCase().includes(searchInput.value.toLowerCase())
-    );
-
-    const sortType = sortSelect.value;
-    filtered.sort((a, b) => {
-        if (sortType === 'highest') return b.amount - a.amount;
-        if (sortType === 'lowest') return a.amount - b.amount;
-        if (sortType === 'newest') return new Date(b.date) - new Date(a.date);
-        if (sortType === 'oldest') return new Date(a.date) - new Date(b.date);
+    let filtered = allData.filter(item => {
+        const matchesSearch = item.title.toLowerCase().includes(searchVal);
+        const matchesFilter = filterVal === 'all' ? true : 
+                             filterVal === 'even' ? item.id % 2 === 0 : 
+                             item.id % 2 !== 0;
+        return matchesSearch && matchesFilter;
     });
 
-    render(filtered);
+    // Limit to 6 items per your requirement
+    const limited = filtered.slice(0, 6);
+
+    if (limited.length === 0) {
+        grid.innerHTML = `<div style="padding:40px; color:#94a3b8;">No results found...</div>`;
+        return;
+    }
+
+    grid.innerHTML = limited.map(item => `
+        <div class="card">
+            <span>Resource #${item.id}</span>
+            <h3>${item.title}</h3>
+            <p>${item.body}</p>
+        </div>
+    `).join('');
 }
 
 // Event Listeners
-searchInput.addEventListener('input', updateUI);
-sortSelect.addEventListener('change', updateUI);
+searchInput.addEventListener('input', displayData);
+filterSelect.addEventListener('change', displayData);
 
-// Initial Load
-render(transactions);
-lucide.createIcons(); // Renders the icons
+// Initialize Page
+displayData();
+
+// Wait for Lucide to load safely
+window.addEventListener('load', () => {
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+});
