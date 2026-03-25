@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Data Hub</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Icons -->
+    <!-- Fixed Icons Link -->
     <script src="https://unpkg.com"></script>
 </head>
 <body>
@@ -32,6 +32,7 @@
                 <input type="text" id="searchInput" placeholder="Search by title...">
             </div>
             
+            <!-- Filter Dropdown for Even/Odd IDs -->
             <div class="filter-wrapper">
                 <select id="filterSelect">
                     <option value="all">All IDs</option>
@@ -41,10 +42,8 @@
             </div>
         </section>
 
-        <div id="loader" class="loader"></div>
-        <div id="resultsGrid" class="results-grid">
-            <!-- API Data Injected Here -->
-        </div>
+        <!-- The grid will start with Skeletons, then show real Cards -->
+        <div id="resultsGrid" class="results-grid"></div>
     </main>
 
     <footer class="site-footer">
