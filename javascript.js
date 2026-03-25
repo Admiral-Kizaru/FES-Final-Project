@@ -1,31 +1,42 @@
-// Local Mock Data (Simulating the API)
-const allData = [
-    { id: 1, title: "Modern Web Design", body: "Exploring the latest trends in UI/UX for 2026." },
-    { id: 2, title: "JavaScript Performance", body: "How to optimize your code for faster load times." },
-    { id: 3, title: "Responsive Layouts", body: "Using CSS Grid and Flexbox for mobile-first sites." },
-    { id: 4, title: "API Integration", body: "A guide to fetching and displaying dynamic content." },
-    { id: 5, title: "Component Systems", body: "Building reusable UI elements for scale." },
-    { id: 6, title: "State Management", body: "Keeping your data in sync across your application." },
-    { id: 7, title: "Security Best Practices", body: "Protecting your web applications from common threats." }
-];
+const API_URL = 'https://jsonplaceholder.typicode.com/posts';
+let allData = []; // This will hold the dynamic data from the API
+let activeCat = 'All';
 
-const grid = document.getElementById('resultsGrid');
-const searchInput = document.getElementById('searchInput');
-const filterSelect = document.getElementById('filterSelect');
+// 1. Fetch Data from the API
+async function fetchData() {
+    try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error('Network response was not ok');
+        allData = await response.json();
+        
+        // Map the API data to match your existing 'category' logic
+        // JSONPlaceholder doesn't have categories, so we'll assign them based on userId
+        allData = allData.map(item => ({
+            ...item,
+            category: item.userId % 3 === 0 ? 'Software' : 
+                      item.userId % 3 === 1 ? 'Food' : 'Hardware'
+        }));
 
+        displayData(); // Initial render once data is loaded
+    } catch (error) {
+        console.error('Fetch error:', error);
+        document.getElementById('resultsGrid').innerHTML = 
+            `<div style="padding:40px; color:red;">Failed to load live data. Check your connection.</div>`;
+    }
+}
+
+// 2. Display Logic (Search, Filter, and 6-item Limit)
 function displayData() {
-    const searchVal = searchInput.value.toLowerCase();
-    const filterVal = filterSelect.value;
+    const searchVal = document.getElementById('searchInput').value.toLowerCase();
+    const grid = document.getElementById('resultsGrid');
 
     let filtered = allData.filter(item => {
         const matchesSearch = item.title.toLowerCase().includes(searchVal);
-        const matchesFilter = filterVal === 'all' ? true : 
-                             filterVal === 'even' ? item.id % 2 === 0 : 
-                             item.id % 2 !== 0;
-        return matchesSearch && matchesFilter;
+        const matchesCat = activeCat === 'All' || item.category === activeCat;
+        return matchesSearch && matchesCat;
     });
 
-    // Limit to 6 items per your requirement
+    // Limit to 6 items as requested
     const limited = filtered.slice(0, 6);
 
     if (limited.length === 0) {
@@ -36,20 +47,27 @@ function displayData() {
     grid.innerHTML = limited.map(item => `
         <div class="card">
             <span>Resource #${item.id}</span>
-            <h3>${item.title}</h3>
-            <p>${item.body}</p>
+            <h3>${item.title.substring(0, 35)}...</h3>
+            <p>${item.body.substring(0, 80)}...</p>
+            <div class="pill ${item.category}">${item.category}</div>
         </div>
     `).join('');
 }
 
+// 3. Category Filter Logic
+function filterByCategory(cat) {
+    activeCat = cat;
+    document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.innerText === cat));
+    displayData();
+}
+
 // Event Listeners
-searchInput.addEventListener('input', displayData);
-filterSelect.addEventListener('change', displayData);
+document.getElementById('searchInput').addEventListener('input', displayData);
 
-// Initialize Page
-displayData();
+// Initialize
+fetchData();
 
-// Wait for Lucide to load safely
+// Icons
 window.addEventListener('load', () => {
     if (typeof lucide !== 'undefined') lucide.createIcons();
 });
