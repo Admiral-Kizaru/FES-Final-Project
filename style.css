@@ -99,3 +99,58 @@ body { background: var(--bg); color: var(--text); line-height: 1.6; }
     .hero h1 { font-size: 1.5rem; }
     .nav-container { flex-direction: column; align-items: center; gap: 10px; }
 }
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Ensure the results grid doesn't collapse while loading */
+.results-grid {
+  min-height: 450px;
+}
+.clickable-card {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.clickable-card:hover {
+    border-color: var(--primary);
+    background-color: #f0f7ff;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.link-icon {
+    color: #cbd5e1;
+    transition: color 0.2s;
+}
+
+.clickable-card:hover .link-icon {
+    color: var(--primary);
+}
+
+/* Visual feedback for clicking */
+.clickable-card:active {
+    transform: scale(0.98);
+}
